@@ -1,13 +1,15 @@
+import { action } from '@storybook/addon-actions';
 import type { Meta } from '@storybook/react';
 import { FaCircleUser } from 'react-icons/fa6';
 
-import { Button, ButtonProps } from '.';
+import { Button, ButtonProps } from './';
 
 const meta: Meta<ButtonProps> = {
   title: 'Button',
   component: Button,
   args: {
     label: 'Button',
+    onClick: action('on-click'),
   },
   argTypes: {
     variant: {
@@ -49,14 +51,20 @@ export const IconButton = (args: ButtonProps) => (
   <Button {...args} icon={<FaCircleUser />} />
 );
 
-export const RTLButton = () => (
-  <div dir="rtl">
-    <Button label="כפתור" icon={<FaCircleUser />} />
-  </div>
-);
-
 export const Disabled = (args: ButtonProps) => <Button {...args} disabled />;
 
 export const LoadingButton = (args: ButtonProps) => (
   <Button {...args} isLoading disabled />
+);
+
+export const RTLIconButton = (args: ButtonProps) => (
+  <div dir="rtl">
+    <Button {...args} label="כפתור" icon={<FaCircleUser />} />
+  </div>
+);
+
+export const RTLLoadingButton = (args: ButtonProps) => (
+  <div dir="rtl">
+    <Button {...args} isLoading disabled />
+  </div>
 );

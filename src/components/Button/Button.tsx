@@ -4,6 +4,7 @@ import { tv } from 'tailwind-variants';
 
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   label: string;
+  onClick: (event: React.MouseEvent<HTMLElement>) => void;
   ['test-id']?: string;
   size?: 'sm' | 'md' | 'lg';
   color?: 'primary' | 'secondary';
@@ -30,7 +31,7 @@ const button = tv({
       outline: 'border bg-transparent',
     },
     disabled: {
-      true: 'opacity-50 !cursor-not-allowed',
+      true: 'opacity-60 !cursor-not-allowed',
     },
     icon: {
       true: 'px-3',
@@ -97,7 +98,8 @@ const button = tv({
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (props, ref) => {
-    const { label, variant, color, size, icon, disabled, isLoading } = props;
+    const { label, variant, color, size, icon, disabled, isLoading, onClick } =
+      props;
 
     return (
       <button
@@ -112,6 +114,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         data-testid={props['test-id']}
         {...props}
         ref={ref}
+        onClick={onClick}
       >
         {!isLoading && icon && (
           <span className="pr-2 rtl:pl-2 rtl:pr-0">{icon}</span>
@@ -121,7 +124,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           label
         ) : (
           <>
-            <TbLoaderQuarter size="25" className="animate-spin mr-2" />
+            <TbLoaderQuarter
+              size="25"
+              className="animate-spin mr-2 rtl:mr-0 rtl:ml-2"
+            />
             Loading...
           </>
         )}
